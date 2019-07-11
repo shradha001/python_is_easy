@@ -29,12 +29,15 @@ def is_song_listed(name):
     else:
         return False
 
-if(is_song_listed("What Hurts the Most")):
-    artist = artist()
-    year = year()
-    genre = genre()
-    print("Artist: ",artist)
-    print("Year: ",year)
-    print("Genre: ",genre)
-else:
-    print('Song not found in our records.')
+def print_attributes():
+    if(is_song_listed("What Hurts the Most")):
+        artist_name = artist()
+        released_year = year()
+        song_genre = genre()
+        print("Artist: ", artist_name)
+        print("Year: ", released_year)
+        print("Genre: ", song_genre)
+    else:
+        print('Song not found in our records.')
+
+print_attributes()
