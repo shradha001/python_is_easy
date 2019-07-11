@@ -29,6 +29,7 @@ def is_song_listed(name):
     else:
         return False
 
+#checks if the song is listed, if yes returns the attributes
 def print_attributes():
     if(is_song_listed("What Hurts the Most")):
         artist_name = artist()
