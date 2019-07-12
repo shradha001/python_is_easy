@@ -17,3 +17,9 @@ To execute, follow the below steps:
 
     cd homework_3
     python main.py
+
+### Homework Assignment # 4: Lists
+To execute, follow the below steps:
+
+    cd homework_4
+    python main.py
