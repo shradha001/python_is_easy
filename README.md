@@ -6,8 +6,14 @@ To execute, follow the below steps:
     cd homework_1
     python main.py
 
-### Homework Assignment # 2: FunctionsTo run the file,
+### Homework Assignment # 2: Functions
 To execute, follow the below steps:
 
     cd homework_2
+    python main.py
+
+### Homework Assignment # 3: If
+To execute, follow the below steps:
+
+    cd homework_3
     python main.py
