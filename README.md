@@ -23,3 +23,9 @@ To execute, follow the below steps:
 
     cd homework_4
     python main.py
+
+### Homework Assignment # 5: Basic Loops
+To execute, follow the below steps:
+
+    cd homework_5
+    python main.py
