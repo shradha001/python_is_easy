@@ -35,3 +35,9 @@ To execute, follow the below steps:
 
     cd homework_6
     python main.py
+
+### Homework Assignment #7: Dictionaries and Sets
+To execute, follow the below steps:
+
+    cd homework_7
+    python main.py
