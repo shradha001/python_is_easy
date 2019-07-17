@@ -38,7 +38,7 @@ def createPlayingBoard(rows, columns):
                 else:
                     print("|", end="")
 
-        # if the rows are odd, print spaces
+        # if the rows are odd, print '-'
         else:
             for column in range(0, columns):
                 endChar = ""
