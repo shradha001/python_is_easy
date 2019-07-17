@@ -15,11 +15,8 @@ MAXIMUM_COLUMNS_ALLOWED = 204
 def createPlayingBoard(rows, columns):
     if type(rows) != int or type(columns) != int:
         return False
-
-    if rows == 1 or columns == 1:
-        return False
    
-    if rows <= 0 or columns <= 0:
+    if rows <= 1 or columns <= 1:
         return False
 
     if rows > MAXIMUM_ROWS_ALLOWED or columns > MAXIMUM_COLUMNS_ALLOWED:
@@ -61,4 +58,4 @@ def playingBoardCreated(rows, columns):
         print('Err, No playing board for you.')
 
 
-playingBoardCreated(49,204)
+playingBoardCreated(5, 5)
