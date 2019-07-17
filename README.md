@@ -29,3 +29,9 @@ To execute, follow the below steps:
 
     cd homework_5
     python main.py
+
+### Homework Assignment # 6: Advanced Loops
+To execute, follow the below steps:
+
+    cd homework_6
+    python main.py

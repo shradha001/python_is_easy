@@ -9,8 +9,7 @@ def printFizzBuzz():
          # 1 is neither prime, nor divisible by 3 or 5, so printing it straight
         if num == 1:
             print(num)
-            continue
-        
+            continue    
         
         # creating a loop to gather prime number, a number cannot be divisible by another number greater than it's own
         # if it's divisible by any other number within this range, then it's not a prime
