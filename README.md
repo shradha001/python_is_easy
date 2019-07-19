@@ -41,3 +41,9 @@ To execute, follow the below steps:
 
     cd homework_7
     python main.py
+
+### Homework Assignment #8: Input and Output (I/O)
+To execute, follow the below steps:
+
+    cd homework_8
+    python main.py
