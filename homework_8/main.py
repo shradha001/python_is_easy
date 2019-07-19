@@ -12,10 +12,11 @@ def startNoteTaking():
 #it asks the user the file name
 def askFilename():
     file_name = input("Please enter the file name:\n")
-    if fileExists("./"+file_name):
-        askFileMode("./"+file_name)
+    file_path = "./" + file_name + ".txt"
+    if fileExists(file_path):
+        askFileMode(file_path)
     else:
-        askFileInput("./"+file_name)
+        askFileInput(file_path)
     
 
 # checks if a file exists or not
@@ -41,7 +42,7 @@ def askFileMode(file_path):
     elif choice == "2":
         deleteFile(file_path)
         createEmptyFile(file_path)
-        print('File is deleted and empty one is made')
+        print('File is deleted and empty one is made.')
     elif choice == "3":
         txt = input("Please enter the content, you wish to add:\n\n")
         appendToFile(file_path, txt)
@@ -59,7 +60,7 @@ def updateLineInFile(file_path):
             print(line_counter , " " , line)
             line_counter += 1
             line_array.append(line)
-    line_num = input('\nEnter the line number you wish to replacement:\n')
+    line_num = input('\nEnter the line number you wish to replace:\n')
     line_num = int(line_num)
     if line_num <= len(line_array):
         txt = input('Enter the new line:\n')
