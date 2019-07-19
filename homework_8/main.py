@@ -28,7 +28,7 @@ def fileExists(file_path):
 def askFileInput(file_path):
     txt = input('Please write down the content:\n')
     writeToFile(file_path, txt+"\n")
-    print('All done')
+    print('Content written...')
 
 
 def askFileMode(file_path):
@@ -65,15 +65,11 @@ def updateLineInFile(file_path):
         txt = input('Enter the new line:\n')
         line_array[line_num - 1] = txt   
         paragraph = ("\n").join(line_array)
-        file = open(file_path, "w")
-        file.write(paragraph)
-        file.close()
-        print('\nFile replaced!')
+        writeToFile(file_path, paragraph)
+        print('\nFile content replaced!')
     else:
         print('Sorry, invalid line number.')
         
-
-
 
 # utility function to write certain content to a file
 def writeToFile(file_path, content):
