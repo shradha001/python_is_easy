@@ -6,6 +6,14 @@ Project #1: A Simple Game: Connect 4
 fields = [[" "," ", " "," "," "," "," "],[" "," ", " "," "," "," "," "],[" "," ", " "," "," "," "," "],[" "," ", " "," "," "," "," "],[" "," ", " "," "," "," "," "],[" "," ", " "," "," "," "," "],[" "," ", " "," "," "," "," "]]   
 
 
+def alterColumns():
+    tmp_fields = [[" "," ", " "," "," "," "," "],[" "," ", " "," "," "," "," "],[" "," ", " "," "," "," "," "],[" "," ", " "," "," "," "," "],[" "," ", " "," "," "," "," "],[" "," ", " "," "," "," "," "],[" "," ", " "," "," "," "," "]]   
+    for i in range(7):
+        for j in range(len(fields[i])):
+            tmp_fields[j][i] = fields[i][j]
+
+    return tmp_fields
+
 def drawBoard(fields):
     for row in range(13):
         if row % 2 == 0:
@@ -35,15 +43,45 @@ def updateBoard(num, player):
     if index == "":
         return False
     column = reversed_column[::-1]
-    print(column)
     fields[num] = column
     drawBoard(fields)
     return True
 
+def checkIfFourInRow():
+    winner = False
+    for column in fields:
+        counter = 0
+        length = len(column)
+        for i in range(1, length):
+            if column[i - 1] != " " and column[i] != " " and column[i - 1 ] == column[i]:
+                counter += 1
+            else:
+                counter = 0
+            if counter == 3:
+                winner = column[i - 1]
+                return winner    
+    return winner
 
-def checkIfAnyWinner(board):
-    print('Checking if any winner')
+def checkIfFourInColumn(tmp_fields):
+    winner = False
+    for column in tmp_fields:
+        counter = 0
+        length = len(column)
+        for i in range(1, length):
+            if column[i - 1] != " " and column[i] != " " and column[i -1 ] == column[i]:
+                 counter += 1
+            else:
+                counter = 0
+            if counter == 3:
+                winner = column[i - 1]
+                return winner
+    return winner
 
+def isValidMove(column_no):
+    if column_no >=1 and column_no <=7:
+        return True
+    else:
+        return False
 
 def askNextMovement(player):
     print('Asking for the next move')
@@ -57,22 +95,46 @@ def startPlaying():
     print('Starting Connect 4')
     player = 1
     no_win = True
+    winner = ""
     while(no_win):
         print('Player ',player, "turn:\n")
         if player == 1:
             column_no = int(input("Enter the column number:\n"))
-            updated_flag = updateBoard(column_no - 1, player)
-            if updated_flag:
-                player = 2
+            if isValidMove(column_no) == False:
+                print('Movement disallowed')
             else:
-                print('movement disallowed!\n')
+                updated_flag = updateBoard(column_no - 1, player)
+                if updated_flag:
+                    player = 2
+                    winner = checkIfFourInRow()
+                    if winner:
+                        no_win = False
+                    else:
+                        tmp_fields = alterColumns()
+                        winner = checkIfFourInColumn(tmp_fields)
+                        if winner:
+                            no_win = False                     
+                else:
+                    print('movement disallowed!\n')
         else:
             column_no = int(input("Enter the column number:\n"))
-            updated_flag = updateBoard(column_no - 1, player)
-            if updated_flag:
-                player = 1
-            else:
+            if isValidMove(column_no) == False:
                 print('Movement disallowed')
+            else:
+                updated_flag = updateBoard(column_no - 1, player)
+                if updated_flag:
+                    player = 1
+                    winner = checkIfFourInRow()
+                    if winner:
+                        no_win = False
+                    else:
+                        tmp_fields = alterColumns()
+                        winner = checkIfFourInColumn(tmp_fields)
+                        if winner:
+                            no_win = False                     
+                else:
+                    print('Movement disallowed')
+    print('Winner is ',winner)
 
 
 startPlaying()
