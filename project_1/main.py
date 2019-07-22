@@ -2,9 +2,9 @@
 Project #1: A Simple Game: Connect 4
 
 """
-            
+from termcolor import colored, cprint
+        
 fields = [[" "," ", " "," "," "," "," "],[" "," ", " "," "," "," "," "],[" "," ", " "," "," "," "," "],[" "," ", " "," "," "," "," "],[" "," ", " "," "," "," "," "],[" "," ", " "," "," "," "," "],[" "," ", " "," "," "," "," "]]   
-
 
 def createColumnMatrix():
     column_matrix = [[" "," ", " "," "," "," "," "],[" "," ", " "," "," "," "," "],[" "," ", " "," "," "," "," "],[" "," ", " "," "," "," "," "],[" "," ", " "," "," "," "," "],[" "," ", " "," "," "," "," "],[" "," ", " "," "," "," "," "]]   
@@ -21,10 +21,14 @@ def drawBoard(fields):
             for column in range(13):
                 if column % 2 == 0:
                     practical_column = int(column/2)
+                    color = "white"
+                    if fields[practical_column][practical_row] == "X":
+                        color = "red"
+                    tile = colored(fields[practical_column][practical_row], color, attrs=['bold'])
                     if column != 12:
-                        print(fields[practical_column][practical_row],end="") 
+                        print(tile,end="") 
                     else:
-                        print(fields[practical_column][practical_row]) 
+                        print(tile) 
                 else:
                     print("|", end="")
         else:
@@ -111,36 +115,46 @@ def startConnect4():
     no_win = True
     winner = ""
     while(no_win):
-        column_no = int(input('Player ' + str(player) + ' turn, enter the column number:\n'))
-        if isValidMove(column_no) == False:
-            print('Hey, this is not a right move. Try again.\n')
-        else:
-            updated_flag = updateBoard(column_no - 1, player)
-            if updated_flag:
-                print("")
-                current_player = player
-                tile = "X" if player == 1 else "0"
-                player = 2 if player == 1 else 1
-                winner = checkIfFourInRow()
-                if winner:
-                    no_win = False
-                else:
-                    column_matrix = createColumnMatrix()
-                    winner = checkIfFourInColumn(column_matrix)
+        ask_column = colored('Player ' + str(player) + ' turn, enter the column number:\n', "yellow",attrs=["bold"])
+        column_no = input(ask_column)
+        if column_no:
+            column_no = int(column_no)     
+            if isValidMove(column_no) == False:
+                cprint('Hey, this is not a right move. Try again.\n', 'red', attrs=['bold'])
+            else:
+                updated_flag = updateBoard(column_no - 1, player)
+                if updated_flag:
+                    print("")
+                    current_player = player
+                    tile = "X" if player == 1 else "O"
+                    player = 2 if player == 1 else 1
+                    winner = checkIfFourInRow()
                     if winner:
                         no_win = False
-                    elif checkIfFourInBackwardDiagonal(column_matrix, tile):
-                        winner = current_player
-                        no_win = False
-                    elif checkIfFourInForwardDiagonal(column_matrix, tile):
-                        winner = current_player
-                        no_win = False                   
-            else:
-                print('Hey, this is not a right move. Try again.\n')
+                    else:
+                        column_matrix = createColumnMatrix()
+                        winner = checkIfFourInColumn(column_matrix)
+                        if winner:
+                            no_win = False
+                        elif checkIfFourInBackwardDiagonal(column_matrix, tile):
+                            winner = current_player
+                            no_win = False
+                        elif checkIfFourInForwardDiagonal(column_matrix, tile):
+                            winner = current_player
+                            no_win = False                   
+                else:
+                    cprint('Hey, this is not a right move. Try again.\n', 'red', attrs=['bold'])
+        else:
+            cprint('Hey, this is not a right move. Try again.\n', 'red', attrs=['bold'])
 
+    if winner == "X":
+        winner = "1"
+    else:
+        winner = "2"
+    cprint('THE WINNER IS PLAYER '+ str(winner), 'blue', attrs=['bold'])
 
-    print('Winner is ',winner)
 
 print('Starting Connect 4 Game... Get ready!\n')
+
 drawBoard(fields)
 startConnect4()
