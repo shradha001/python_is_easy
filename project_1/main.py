@@ -6,13 +6,13 @@ Project #1: A Simple Game: Connect 4
 fields = [[" "," ", " "," "," "," "," "],[" "," ", " "," "," "," "," "],[" "," ", " "," "," "," "," "],[" "," ", " "," "," "," "," "],[" "," ", " "," "," "," "," "],[" "," ", " "," "," "," "," "],[" "," ", " "," "," "," "," "]]   
 
 
-def alterColumns():
-    tmp_fields = [[" "," ", " "," "," "," "," "],[" "," ", " "," "," "," "," "],[" "," ", " "," "," "," "," "],[" "," ", " "," "," "," "," "],[" "," ", " "," "," "," "," "],[" "," ", " "," "," "," "," "],[" "," ", " "," "," "," "," "]]   
+def createColumnMatrix():
+    column_matrix = [[" "," ", " "," "," "," "," "],[" "," ", " "," "," "," "," "],[" "," ", " "," "," "," "," "],[" "," ", " "," "," "," "," "],[" "," ", " "," "," "," "," "],[" "," ", " "," "," "," "," "],[" "," ", " "," "," "," "," "]]   
     for i in range(7):
         for j in range(len(fields[i])):
-            tmp_fields[j][i] = fields[i][j]
+            column_matrix[j][i] = fields[i][j]
 
-    return tmp_fields
+    return column_matrix
 
 def drawBoard(fields):
     for row in range(13):
@@ -29,6 +29,7 @@ def drawBoard(fields):
                     print("|", end="")
         else:
             print("-------------")
+    print("\n")
 
 def updateBoard(num, player):
     column = fields[num]
@@ -61,9 +62,9 @@ def checkIfFourInRow():
                 return winner    
     return winner
 
-def checkIfFourInColumn(tmp_fields):
+def checkIfFourInColumn(column_matrix):
     winner = False
-    for column in tmp_fields:
+    for column in column_matrix:
         counter = 0
         length = len(column)
         for i in range(1, length):
@@ -76,11 +77,11 @@ def checkIfFourInColumn(tmp_fields):
                 return winner
     return winner
 
-def checkIfFourInForwardDiagonal(tmp_fields, player):
-    for i in range(0, len(tmp_fields)):
-        for j in range(0, len(tmp_fields[i])):
+def checkIfFourInForwardDiagonal(column_matrix, player):
+    for i in range(0, len(column_matrix)):
+        for j in range(0, len(column_matrix[i])):
             try:
-                if tmp_fields[i][j] == player and tmp_fields[i + 1][j - 1] == player and tmp_fields[i + 2][j - 2] == player and tmp_fields[i + 3][j - 3] == player:
+                if column_matrix[i][j] == player and column_matrix[i + 1][j - 1] == player and column_matrix[i + 2][j - 2] == player and column_matrix[i + 3][j - 3] == player:
                     return True
             except IndexError:
                 next
@@ -88,11 +89,11 @@ def checkIfFourInForwardDiagonal(tmp_fields, player):
     return False
 
 
-def checkIfFourInBackwardDiagonal(tmp_fields, player):
-    for i in range(0, len(tmp_fields)):
-        for j in range(0, len(tmp_fields[i])):
+def checkIfFourInBackwardDiagonal(column_matrix, player):
+    for i in range(0, len(column_matrix)):
+        for j in range(0, len(column_matrix[i])):
             try:
-                if tmp_fields[i][j] == player and tmp_fields[i + 1][j + 1] == player and tmp_fields[i + 2][j + 2] == player and tmp_fields[i + 3][j + 3] == player:
+                if column_matrix[i][j] == player and column_matrix[i + 1][j + 1] == player and column_matrix[i + 2][j + 2] == player and column_matrix[i + 3][j + 3] == player:
                     return True
             except IndexError:
                 next
@@ -105,16 +106,12 @@ def isValidMove(column_no):
         return False
 
 
-drawBoard(fields)
-
-def startPlaying():
-    print('Starting Connect 4 Game... Get ready!')
+def startConnect4():
     player = 1
     no_win = True
     winner = ""
     while(no_win):
-        print('Player ',player, "turn:\n")
-        column_no = int(input('Enter the column number:\n'))
+        column_no = int(input('Player ' + str(player) + ' turn, enter the column number:\n'))
         if isValidMove(column_no) == False:
             print('Hey, this is not a right move. Try again.\n')
         else:
@@ -128,14 +125,14 @@ def startPlaying():
                 if winner:
                     no_win = False
                 else:
-                    tmp_fields = alterColumns()
-                    winner = checkIfFourInColumn(tmp_fields)
+                    column_matrix = createColumnMatrix()
+                    winner = checkIfFourInColumn(column_matrix)
                     if winner:
                         no_win = False
-                    elif checkIfFourInBackwardDiagonal(tmp_fields, tile):
+                    elif checkIfFourInBackwardDiagonal(column_matrix, tile):
                         winner = current_player
                         no_win = False
-                    elif checkIfFourInForwardDiagonal(tmp_fields, tile):
+                    elif checkIfFourInForwardDiagonal(column_matrix, tile):
                         winner = current_player
                         no_win = False                   
             else:
@@ -144,4 +141,6 @@ def startPlaying():
 
     print('Winner is ',winner)
 
-startPlaying()
+print('Starting Connect 4 Game... Get ready!\n')
+drawBoard(fields)
+startConnect4()
