@@ -47,3 +47,10 @@ To execute, follow the below steps:
 
     cd homework_8
     python main.py
+
+
+### Project 1: A simple game - Connec4
+To execute, follow the below steps:
+
+    cd project_1
+    python main.py
