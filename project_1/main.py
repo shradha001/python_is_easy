@@ -30,7 +30,6 @@ def drawBoard(fields):
         else:
             print("-------------")
 
-
 def updateBoard(num, player):
     column = fields[num]
     index = ""
@@ -77,64 +76,72 @@ def checkIfFourInColumn(tmp_fields):
                 return winner
     return winner
 
+def checkIfFourInForwardDiagonal(tmp_fields, player):
+    for i in range(0, len(tmp_fields)):
+        for j in range(0, len(tmp_fields[i])):
+            try:
+                if tmp_fields[i][j] == player and tmp_fields[i + 1][j - 1] == player and tmp_fields[i + 2][j - 2] == player and tmp_fields[i + 3][j - 3] == player:
+                    return True
+            except IndexError:
+                next
+
+    return False
+
+
+def checkIfFourInBackwardDiagonal(tmp_fields, player):
+    for i in range(0, len(tmp_fields)):
+        for j in range(0, len(tmp_fields[i])):
+            try:
+                if tmp_fields[i][j] == player and tmp_fields[i + 1][j + 1] == player and tmp_fields[i + 2][j + 2] == player and tmp_fields[i + 3][j + 3] == player:
+                    return True
+            except IndexError:
+                next
+    return False
+
 def isValidMove(column_no):
     if column_no >=1 and column_no <=7:
         return True
     else:
         return False
 
-def askNextMovement(player):
-    print('Asking for the next move')
-
-
-print('Starting Connect4.....\n')
 
 drawBoard(fields)
 
 def startPlaying():
-    print('Starting Connect 4')
+    print('Starting Connect 4 Game... Get ready!')
     player = 1
     no_win = True
     winner = ""
     while(no_win):
         print('Player ',player, "turn:\n")
-        if player == 1:
-            column_no = int(input("Enter the column number:\n"))
-            if isValidMove(column_no) == False:
-                print('Movement disallowed')
-            else:
-                updated_flag = updateBoard(column_no - 1, player)
-                if updated_flag:
-                    player = 2
-                    winner = checkIfFourInRow()
-                    if winner:
-                        no_win = False
-                    else:
-                        tmp_fields = alterColumns()
-                        winner = checkIfFourInColumn(tmp_fields)
-                        if winner:
-                            no_win = False                     
-                else:
-                    print('movement disallowed!\n')
+        column_no = int(input('Enter the column number:\n'))
+        if isValidMove(column_no) == False:
+            print('Hey, this is not a right move. Try again.\n')
         else:
-            column_no = int(input("Enter the column number:\n"))
-            if isValidMove(column_no) == False:
-                print('Movement disallowed')
-            else:
-                updated_flag = updateBoard(column_no - 1, player)
-                if updated_flag:
-                    player = 1
-                    winner = checkIfFourInRow()
+            updated_flag = updateBoard(column_no - 1, player)
+            if updated_flag:
+                print("")
+                current_player = player
+                tile = "X" if player == 1 else "0"
+                player = 2 if player == 1 else 1
+                winner = checkIfFourInRow()
+                if winner:
+                    no_win = False
+                else:
+                    tmp_fields = alterColumns()
+                    winner = checkIfFourInColumn(tmp_fields)
                     if winner:
                         no_win = False
-                    else:
-                        tmp_fields = alterColumns()
-                        winner = checkIfFourInColumn(tmp_fields)
-                        if winner:
-                            no_win = False                     
-                else:
-                    print('Movement disallowed')
-    print('Winner is ',winner)
+                    elif checkIfFourInBackwardDiagonal(tmp_fields, tile):
+                        winner = current_player
+                        no_win = False
+                    elif checkIfFourInForwardDiagonal(tmp_fields, tile):
+                        winner = current_player
+                        no_win = False                   
+            else:
+                print('Hey, this is not a right move. Try again.\n')
 
+
+    print('Winner is ',winner)
 
 startPlaying()
