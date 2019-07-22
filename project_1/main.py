@@ -6,13 +6,6 @@ from termcolor import colored, cprint
         
 fields = [[" "," ", " "," "," "," "," "],[" "," ", " "," "," "," "," "],[" "," ", " "," "," "," "," "],[" "," ", " "," "," "," "," "],[" "," ", " "," "," "," "," "],[" "," ", " "," "," "," "," "],[" "," ", " "," "," "," "," "]]   
 
-def createColumnMatrix():
-    column_matrix = [[" "," ", " "," "," "," "," "],[" "," ", " "," "," "," "," "],[" "," ", " "," "," "," "," "],[" "," ", " "," "," "," "," "],[" "," ", " "," "," "," "," "],[" "," ", " "," "," "," "," "],[" "," ", " "," "," "," "," "]]   
-    for i in range(7):
-        for j in range(len(fields[i])):
-            column_matrix[j][i] = fields[i][j]
-
-    return column_matrix
 
 def drawBoard(fields):
     for row in range(13):
@@ -109,7 +102,14 @@ def isValidMove(column_no):
     else:
         return False
 
+def createColumnMatrix():
+    column_matrix = [[" "," ", " "," "," "," "," "],[" "," ", " "," "," "," "," "],[" "," ", " "," "," "," "," "],[" "," ", " "," "," "," "," "],[" "," ", " "," "," "," "," "],[" "," ", " "," "," "," "," "],[" "," ", " "," "," "," "," "]]   
+    for i in range(7):
+        for j in range(len(fields[i])):
+            column_matrix[j][i] = fields[i][j]
 
+    return column_matrix
+    
 def startConnect4():
     player = 1
     no_win = True
