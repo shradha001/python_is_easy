@@ -54,3 +54,9 @@ To execute, follow the below steps:
 
     cd project_1
     python main.py
+
+### Homework Assignment #9: Classes
+To execute, follow the below steps:
+
+    cd homework_9
+    python main.py
