@@ -4,7 +4,7 @@ Homework Assignment #10: Importing
 """
 import os
 
-#list of functions under o
+#list of functions under os
 print(dir(os))
 
 # get current working directory
