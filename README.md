@@ -60,3 +60,9 @@ To execute, follow the below steps:
 
     cd homework_9
     python main.py
+
+### Homework Assignment #10: Importing
+To execute, follow the below steps:
+
+    cd homework_10
+    python main.py
