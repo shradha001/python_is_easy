@@ -72,3 +72,9 @@ To execute, follow the below steps:
 
     cd project_2
     python main.py
+
+### Homework Assignment #11: Error Handling
+To execute, follow the below steps:
+
+    cd homework_11
+    python main.py
