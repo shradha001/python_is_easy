@@ -14,6 +14,18 @@ Project #2: Hangman
 """
  
 from termcolor import colored, cprint
+import random
+
+words_list = [
+    "awkward",
+    "bagpipes",
+    "banjo",
+    "bungler",
+    "croquet",
+    "crypt",
+    "dwarves",
+    "fervid"
+]
 
 def drawHangman(face=False, neck=False, body=False, left_hand=False, right_hand=False, left_leg=False, right_leg=False):
     for row in range(10):
@@ -127,11 +139,16 @@ def drawHangman(face=False, neck=False, body=False, left_hand=False, right_hand=
                     print(" ", end="")  
 
 
+# allow computer to pick
+def askComputerToPick():
+    word = random.choice(words_list)
+    return word.lower()
+
 # phrase should only be alphabets
 def askHostToSayPhrase(repeatText = None):
     question = repeatText if repeatText is not None else "Type your secret word.\n"
     word = input(question)
-    if type(word) == str and len(word) == 3:
+    if type(word) == str and len(word) >= 3:
         return word.lower()
     else:
         return askHostToSayPhrase("Hey, please make it atleast three words! Type again.\n")
@@ -157,6 +174,7 @@ def fillBlanks(letter, phrase_letters, guessed_letters):
         guessed_letters[index] = letter
     return guessed_letters
 
+# ask player to guess letter
 def guessLetter(repeatText = None):
     question = repeatText if repeatText is not None else "What's your guess?\n"
     word = input(question)
@@ -166,7 +184,7 @@ def guessLetter(repeatText = None):
         return guessLetter("Hey, one letter at a time! Type again.\n")
     
 
-
+# show missed letters to use
 def showMisses(misses):
     print("Misses: ", end="")
     for miss in misses:
@@ -192,10 +210,28 @@ def drawHangmanBasedOnWrongGuessed(committed_mistakes):
     if committed_mistakes == 7:
         drawHangman(True, True, True, True, True, True, True)
 
+# ask 1P or 2P
+def askGameType():
+    question  = "Type your game option?\n\n"
+    option = "1) One Player Mode\n2) Two Player Mode\n\n"
+    game_type = input(question + option)
+    if type(game_type) == str and game_type == "1" or game_type == "2":
+        return int(game_type)
+    else:
+        askGameType()
+
+        
 
 def startHangman():
-    #ask player to guess
-    phrase = askHostToSayPhrase()
+    #ask game type mode
+    game_type = askGameType()
+    phrase= ""
+    # player one mode
+    if game_type == 1:
+        phrase = askComputerToPick()
+    else:
+        phrase = askHostToSayPhrase()
+        
     phrase_letters = [char for char in phrase]
     guessed_letters = ["__" for el in phrase_letters ]
     committed_mistakes = 0
