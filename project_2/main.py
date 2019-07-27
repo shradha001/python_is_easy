@@ -12,6 +12,9 @@ Project #2: Hangman
  
 from termcolor import colored, cprint
 import random
+import time
+import os
+import sys
 
 words_list = [
     "awkward",
@@ -222,6 +225,27 @@ def askGameType():
     else:
         askGameType()      
 
+# get platform
+def get_platform():
+    platforms = {
+        'linux1' : 'Linux',
+        'linux2' : 'Linux',
+        'darwin' : 'OS X',
+        'win32' : 'Windows'
+    }
+    if sys.platform not in platforms:
+        return sys.platform
+    
+    return platforms[sys.platform]
+
+# clear screen
+def clear_screen():
+    platform = get_platform()
+    if platform == "Windows": 
+        os.system("cls")
+    else:
+        os.system("clear")
+
 def startHangman():
     # show welcome text
     showWelcomeText()
@@ -245,14 +269,18 @@ def startHangman():
     missed_letters = []
 
     # hide the secret word, clear the screen.
-    print(chr(27) + "[2J") 
-
+    # print(chr(27) + "[2J") 
+    clear_screen()
     no_win = True
 
     # ask player to start guessing, while loop to continue
     # until the player guessed it correct or
     # the mistakes are 7
     while(committed_mistakes < 7 and no_win):
+        
+        # draw hangman based on wrong guessed
+        drawHangmanBasedOnWrongGuessed(committed_mistakes)
+
         # draw guessed letters or blanks
         drawGuessedLetters(guessed_letters)
 
@@ -287,12 +315,10 @@ def startHangman():
         else:
             committed_mistakes += 1
             missed_letters.append(guessed_letter)
-
-            # draw hangman based on wrong guessed
-            drawHangmanBasedOnWrongGuessed(committed_mistakes)
             cprint("Damn, you missed!", 'red', attrs=['bold'])
 
-        print("----------------------------------------------------------------------------")
+        time.sleep(1)
+        clear_screen()
     
     if no_win == False:
             drawGuessedLetters(guessed_letters)
