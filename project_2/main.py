@@ -1,12 +1,13 @@
 """
 Project #2: Hangman
-  _____________ 0
- _|_          | 1
-| _ |         | 2
-  |           | 3
-/ | \         | 4
-  |           | 5
-/   \         | 6
+7 x 20
+  __________________ 0
+ _|_               | 1
+| _ |              | 2
+  |                | 3
+/ | \              | 4
+  |                | 5
+/   \              | 6
 
 """
  
@@ -293,9 +294,12 @@ def startHangman():
         # already guessed letter should not be allowed
         if guessed_letter in already_guessed_letters:
             cprint("Hey, you already guessed it, try something else!", 'blue', attrs=['bold'])
+            time.sleep(1)
+            clear_screen()
             continue
         else:
             already_guessed_letters.append(guessed_letter)
+       
         #check if the guessed letter is correct
         guessed = checkGuess(guessed_letter, phrase_letters)
 
@@ -329,6 +333,7 @@ def startHangman():
         cprint("Oops, you lost. Better luck next time!", 'red', attrs=['bold'])
         print('The word was', phrase)
 
-        
+
+# start hangman game      
 startHangman()
 
