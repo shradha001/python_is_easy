@@ -330,7 +330,5 @@ def startHangman():
         print('The word was', phrase)
 
         
-
-
 startHangman()
 
