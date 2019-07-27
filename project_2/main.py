@@ -287,7 +287,7 @@ def startHangman():
         else:
             committed_mistakes += 1
             missed_letters.append(guessed_letter)
-            
+
             # draw hangman based on wrong guessed
             drawHangmanBasedOnWrongGuessed(committed_mistakes)
             cprint("Damn, you missed!", 'red', attrs=['bold'])
@@ -295,11 +295,13 @@ def startHangman():
         print("----------------------------------------------------------------------------")
     
     if no_win == False:
+            drawGuessedLetters(guessed_letters)
             cprint("You Won! Great Job!", 'cyan', attrs=['bold'])
     
     if committed_mistakes == 7:
         drawHangmanBasedOnWrongGuessed(committed_mistakes)
         cprint("Oops, you lost. Better luck next time!", 'red', attrs=['bold'])
+        print('The word was', phrase)
 
         
 
