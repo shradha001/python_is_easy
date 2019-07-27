@@ -1,8 +1,5 @@
 """
 Project #2: Hangman
-
-
-+++++++++++++++   
   _____________ 0
  _|_          | 1
 | _ |         | 2
@@ -139,6 +136,12 @@ def drawHangman(face=False, neck=False, body=False, left_hand=False, right_hand=
                     print(" ", end="")  
 
 
+#welcome text
+def showWelcomeText():
+    welcome_text = "WELCOME TO THE HANGMAN GAME!!!"
+    text = colored(welcome_text, 'red', attrs=['reverse', 'blink'])
+    print(text)
+
 # allow computer to pick
 def askComputerToPick():
     word = random.choice(words_list)
@@ -183,7 +186,6 @@ def guessLetter(repeatText = None):
     else:
         return guessLetter("Hey, one letter at a time! Type again.\n")
     
-
 # show missed letters to use
 def showMisses(misses):
     print("Misses: ", end="")
@@ -218,17 +220,21 @@ def askGameType():
     if type(game_type) == str and game_type == "1" or game_type == "2":
         return int(game_type)
     else:
-        askGameType()
-
-        
+        askGameType()      
 
 def startHangman():
+    # show welcome text
+    showWelcomeText()
+
     #ask game type mode
     game_type = askGameType()
+
     phrase= ""
     # player one mode
     if game_type == 1:
         phrase = askComputerToPick()
+
+    # player two mode
     else:
         phrase = askHostToSayPhrase()
         
@@ -252,11 +258,11 @@ def startHangman():
 
         if len(missed_letters) > 0:
             showMisses(missed_letters)
+
         # ask player to guess
         guessed_letter = guessLetter()
         
-        
-        # guessed letter should not be allowed
+        # already guessed letter should not be allowed
         if guessed_letter in already_guessed_letters:
             cprint("Hey, you already guessed it, try something else!", 'blue', attrs=['bold'])
             continue
@@ -269,7 +275,6 @@ def startHangman():
         # inform the player it's the right guess
         if guessed == True:
             guessed_letters = fillBlanks(guessed_letter, phrase_letters, guessed_letters)
-            # todo: make a list of appreciation and pick randomly
             cprint("That's like a pro!", 'magenta', attrs=['bold'])
 
             #check if the word is completed
@@ -282,9 +287,9 @@ def startHangman():
         else:
             committed_mistakes += 1
             missed_letters.append(guessed_letter)
+            
             # draw hangman based on wrong guessed
             drawHangmanBasedOnWrongGuessed(committed_mistakes)
-            # todo: make a list of wrong guessed messages and pick randomly
             cprint("Damn, you missed!", 'red', attrs=['bold'])
 
         print("----------------------------------------------------------------------------")
