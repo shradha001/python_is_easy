@@ -66,3 +66,9 @@ To execute, follow the below steps:
 
     cd homework_10
     python main.py
+
+### Project 2: Hangman Game
+To execute, follow the below steps:
+
+    cd project_2
+    python main.py
