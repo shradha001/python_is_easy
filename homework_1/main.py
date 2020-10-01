@@ -1,5 +1,5 @@
 """
-Homework Assignment #1: Variables
+Homework Assignment #1(pirple.com): Variables
 
 Listing the metadata of "What Hurts the Most" Song
 
